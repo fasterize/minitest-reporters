@@ -66,7 +66,7 @@ module Minitest
         suite_result = analyze_suite(tests)
         file_path = Pathname.new(get_source_location(tests.first).first)
         base_path = Pathname.new(@base_path)
-        relative_path = file_path.relative_path_from(base_path)
+        relative_path = file_path.relative? ? file_path : file_path.relative_path_from(base_path)
 
         xml.testsuite(:name => suite, :filepath => relative_path,
                       :skipped => suite_result[:skip_count], :failures => suite_result[:fail_count],
